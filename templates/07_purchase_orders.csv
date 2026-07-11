@@ -1,0 +1,31 @@
+po_id,po_date,supplier_id,branch_dest,expected_date,actual_delivery_date,status,total_value_idr,total_items,delivery_on_time,delivery_in_full,quality_accepted,quality_rejected,notes
+PO-2026-001,2026-01-05,1,BWI,2026-01-26,2026-01-27,completed,2375000,1,no,yes,yes,no,Telat 1 hari karena cuaca
+PO-2026-002,2026-01-05,15,BWI,2026-01-12,2026-01-10,completed,1800000,1,yes,yes,yes,no,Lebih cepat 2 hari
+PO-2026-003,2026-01-08,3,GYR,2026-01-22,2026-01-23,completed,8500000,2,no,yes,yes,no,Telat 1 hari
+PO-2026-004,2026-01-10,5,GYR,2026-02-04,2026-02-05,completed,4250000,1,no,yes,yes,no,
+PO-2026-005,2026-01-15,1,BWI,2026-02-05,2026-02-08,completed,3562500,1,no,yes,yes,no,Telat 3 hari
+PO-2026-006,2026-01-20,2,NSD,2026-02-12,2026-02-15,completed,6250000,1,no,yes,yes,no,Telat 3 hari
+PO-2026-007,2026-01-22,4,PLR,2026-02-08,2026-02-09,completed,6800000,2,no,yes,yes,no,
+PO-2026-008,2026-02-01,1,BWI,2026-02-22,2026-02-23,completed,2850000,1,no,yes,yes,no,
+PO-2026-009,2026-02-05,15,GYR,2026-02-12,2026-02-11,completed,2100000,1,yes,yes,yes,no,Lebih cepat
+PO-2026-010,2026-02-10,5,KPG,2026-03-07,2026-03-09,completed,3800000,1,no,yes,yes,no,Telat 2 hari - masalah kapal
+PO-2026-011,2026-02-15,3,MTR,2026-03-04,2026-03-04,completed,9100000,2,yes,yes,yes,no,
+PO-2026-012,2026-02-20,7,NSD,2026-02-27,2026-02-26,completed,1680000,1,yes,yes,yes,no,Lebih cepat 1 hari
+PO-2026-013,2026-03-01,1,BWI,2026-03-22,2026-03-25,completed,3325000,1,no,yes,yes,no,Telat 3 hari
+PO-2026-014,2026-03-05,15,PLR,2026-03-12,2026-03-12,completed,1500000,1,yes,yes,yes,no,
+PO-2026-015,2026-03-10,2,DPS,2026-04-01,2026-04-02,completed,3750000,1,no,yes,yes,no,
+PO-2026-016,2026-03-15,4,NSD,2026-04-01,2026-04-02,completed,5200000,2,no,yes,yes,no,
+PO-2026-017,2026-03-20,8,KPG,2026-04-13,2026-04-15,completed,5600000,1,no,yes,yes,no,Telat 2 hari
+PO-2026-018,2026-04-01,1,BWI,2026-04-22,2026-04-23,completed,2850000,1,no,yes,yes,no,
+PO-2026-019,2026-04-05,15,KGW,2026-04-12,2026-04-11,completed,900000,1,yes,yes,yes,no,Lebih cepat
+PO-2026-020,2026-04-10,5,SGR,2026-05-05,2026-05-07,completed,4250000,1,no,yes,yes,no,Telat 2 hari
+PO-2026-021,2026-04-15,3,MTR,2026-05-02,2026-05-02,completed,9100000,2,yes,yes,yes,no,
+PO-2026-022,2026-04-20,7,PLR,2026-04-27,2026-04-28,completed,2100000,1,no,yes,yes,no,Telat 1 hari
+PO-2026-023,2026-05-01,1,BWI,2026-05-22,2026-05-24,completed,3800000,1,no,yes,yes,no,Telat 2 hari
+PO-2026-024,2026-05-05,15,TBN,2026-05-12,2026-05-11,completed,1080000,1,yes,yes,yes,no,Lebih cepat
+PO-2026-025,2026-05-10,2,DPS,2026-06-01,2026-06-03,completed,5000000,1,no,yes,yes,no,Telat 2 hari
+PO-2026-026,2026-05-15,4,NSD,2026-06-01,2026-06-02,completed,6500000,2,no,yes,yes,no,Telat 1 hari
+PO-2026-027,2026-05-20,8,KPG,2026-06-13,,in_transit,7200000,1,na,na,na,na,Dalam perjalanan
+PO-2026-028,2026-05-25,1,BWI,2026-06-15,,in_transit,3800000,1,na,na,na,na,Sudah keluar dari supplier
+PO-2026-029,2026-05-28,7,PLR,2026-06-04,,scheduled,2100000,1,na,na,na,na,Belum dikirim
+PO-2026-030,2026-05-30,15,TBN,2026-06-06,,scheduled,900000,1,na,na,na,na,Belum dikirim

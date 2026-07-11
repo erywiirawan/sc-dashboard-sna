@@ -1,0 +1,21 @@
+supplier_id,supplier_name,supplier_group,address,email,pic_name,pic_phone,top_days,top_type,is_primary,is_backup,lead_time_days_min,lead_time_days_max,lead_time_avg,lead_time_std,quality_rating,otif_rating,contract_start,contract_end,payment_method
+1,Amak Firdaus Utomo,Bata Ringan,"JL. ANGGREK NO.2, MAYANGAN, KOTA PROBOLINGGO, JAWA TIMUR",office@utomoflex.com,Ibu Titin,0821-3289-4580,0,CBD,yes,no,14,21,17,3,4.5,90,2023-01-01,2025-12-31,transfer
+2,Cipta Papan,GRC,"GRAHA GRC BOARD, JL. S. PARMAN KAV. 64, JAKARTA 11410",damianus.hadnoro@grcboard.com,Bpk. Febby,0813-3291-8321,15,kredit,yes,no,21,30,25,4,4.0,85,2023-06-01,2025-05-31,transfer
+3,CV. BUKIT HARMONI,Besi,"JL. RAYA BANJARAN RT.001 RW.005, KRIKILAN, BANJARAN, DRIYOREJO, GRESIK, JAWA TIMUR",,Ibu Mega,0851-0721-2332,14,kredit,yes,no,7,14,10,3,4.2,92,2022-09-01,2025-08-31,transfer
+4,CV. Kawi Jaya Perkasa,Besi,"JL. INDUSTRI I B NO. 6 RT. 012 RW. 003, JEMUNDO, TAMAN, KAB. SIDOARJO, JAWA TIMUR",,Bpk. Ferdy,0812-2428-4546,0,CBD,yes,no,5,10,7,2,4.5,95,2023-03-15,2025-03-14,transfer
+5,PT. Surya Semen,Triplek,"Jl. Raya Surabaya - Mojokerto, Jawa Timur",sales@suryasemen.co.id,Bpk. Hendra,0813-9876-5432,45,kredit,yes,no,21,30,25,4,3.8,80,2023-08-01,2025-07-31,transfer
+6,PT. Maju Pipa,Pipa,"Jl. Industri Raya, Buduran, Sidoarjo",info@majupipa.co.id,Ibu Lina,0812-1111-3333,1,kredit,yes,no,3,7,5,1,4.7,96,2022-11-01,2025-10-31,cash
+7,PT. Kabelindo,Kabel,"Jl. Gatot Subroto, Surabaya",sales@kabelindo.com,Bpk. Tommy,0812-2222-3333,0,CBD,yes,no,5,10,7,2,4.3,88,2023-02-01,2025-01-31,transfer
+8,PT. Sinar Jaya Gypsum,Gypsum,"Jl. Mayjend Sungkono, Surabaya",info@sinarjayagypsum.com,Bpk. Andi,0812-3333-4444,60,kredit,yes,no,21,35,28,5,4.0,82,2022-05-01,2025-04-30,transfer
+9,PT. Wire Steel,Wiremesh,"Jl. Raya Bekasi, Cikarang",sales@wiresteel.co.id,Bpk. Dedi,0812-4444-5555,14,kredit,yes,no,14,21,17,3,4.1,87,2023-09-01,2025-08-31,transfer
+10,PT. Hollow Indonesia,Hollow,Trimdek,"Jl. Industri, Surabaya",sales@hollowindo.co.id,Bpk. Iwan,0812-5555-6666,45,kredit,yes,no,21,30,25,4,3.9,83,2023-07-01,2025-06-30,transfer
+11,PT. Asbes Jaya,Asbes,"Jl. Raya Bogor, Jawa Barat",info@asbesjaya.co.id,Bpk. Yanto,0812-6666-7777,0,CBD,yes,no,7,14,10,3,4.0,85,2022-12-01,2025-11-30,cash
+12,PT. Aspal Nusantara,Aspal,"Jl. Raya Jakarta, Tangerang",sales@aspalnusantara.co.id,Bpk. Hasan,0812-7777-8888,30,kredit,yes,no,14,21,17,3,4.4,90,2023-04-01,2025-03-31,transfer
+13,PT. Keran Ryuichi Indonesia,Keran Ryuichi,"Jl. Industri Raya, Jakarta",info@ryuichi.co.id,Ibu Sari,0812-8888-9999,30,kredit,yes,no,21,30,25,4,4.2,89,2022-10-01,2025-09-30,transfer
+14,PT. Indostar Board,Indostar Board,"Jl. Raya Surabaya - Malang, Jawa Timur",sales@indostar.co.id,Bpk. Hendro,0812-9999-0000,0,CBD,yes,no,7,14,10,3,4.0,86,2023-05-01,2025-04-30,transfer
+15,CV. Paku Jaya,Paku,"Jl. Pasar Paku, Surabaya",,Ibu Rina,0812-1234-5678,1,kredit,yes,no,3,7,5,1,4.5,93,2023-01-15,2025-01-14,cash
+16,PT. Fox Lem Indonesia,Lem Rajawali,"Jl. Raya Industri, Tangerang",info@foxlem.co.id,Bpk. Ari,0812-2345-6789,60,kredit,yes,no,14,21,17,3,4.3,91,2022-08-01,2025-07-31,transfer
+17,PT. Bintang Bata,Bata Ringan,"Jl. Raya Probolinggo, Jawa Timur",sales@bintangbata.co.id,Bpk. Hadi,0812-3456-7890,30,kredit,no,yes,14,21,17,3,4.1,84,2024-01-01,2025-12-31,transfer
+18,PT. Mitra Bata,Bata Ringan,"Jl. Raya Malang, Jawa Timur",,Ibu Yuni,0812-4567-8901,45,kredit,no,yes,14,28,21,5,3.9,80,2024-02-01,2026-01-31,transfer
+19,CV. Sumber Bata,Bata Ringan,"Jl. Raya Pasuruan, Jawa Timur",sales@sumberbata.com,Bpk. Eko,0812-5678-9012,30,kredit,no,yes,14,21,17,3,4.0,82,2024-01-15,2025-12-31,transfer
+20,PT. Kabel Utama,Kabel,"Jl. Industri Raya, Surabaya",sales@kabelutama.co.id,Bpk. Wawan,0812-6789-0123,0,CBD,no,yes,5,10,7,2,4.4,89,2023-11-01,2025-10-31,transfer

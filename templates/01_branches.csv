@@ -1,0 +1,22 @@
+branch_id,branch_name,region,address,pic_1_name,pic_1_phone,pic_1_role,pic_2_name,pic_2_phone,pic_2_role,pic_3_name,pic_3_phone,pic_3_role,branch_type,operational_note,opening_date,status
+BWI,Saka Niaga Banyuwangi,BALI,"JL. MOH. YAMIN, LKR. KP. BARU, BULUSAN, KALIPURO, BANYUWANGI, JAWA TIMUR 68455",Bpk. Hein,0897-8676-855,H (Head),Bpk. Rofi,0853-3021-3320,A (Assistant),Bpk. Dhanang,,A (Assistant),gudang,Gudang utama Banyuwangi,2020-01-15,active
+GYR,Saka Niaga Ketewel,BALI,"JL. PROF. IDA BAGUS MANTRA, KETEWEL, SUKAWATI, GIANYAR, BALI 80582",Bpk. Irvan Setiawan Thio,0859-5668-6282,HO,,,,,gudang,Gudang utama Bali (hub),2018-05-10,active
+NSD,Saka Niaga Nusa Dua,BALI,"JL. BYPASS NGURAH RAI, LINGKUNGAN BUALU, BENOA, KUTA SEL., BADUNG, BALI 80361",Bpk. Ramdan,0851-5530-8893,A (Assistant),Bpk. Dwi Putra,0878-1911-9780,H (Head),,,gudang,Coverage area Badung & Denpasar,2019-03-22,active
+KLK,Saka Niaga Klungkung,BALI,"PENGIRIMAN SNA KE GUDANG KETEWEL, KE GUDANG TUJUAN MENGGUNAKAN TRANSFER",,,,,,,,transfer,Transfer only - via Ketewel (no PIC needed),2020-01-01,active
+KRS,Saka Niaga Karangasem,BALI,"Jl. Ahmad Yani, Karangasem, Bali",Bpk. Budi Prastiyo,0812-3690-862,H (Head),Panca Arya,,A (Assistant),,,gudang,Coverage area Bali Timur,2019-08-15,active
+TBN,Saka Niaga Tabanan,BALI,"Jl. Raya Tabanan - Denpasar, Tabanan, Bali",Bpk. Kresna,0878-6189-8417,H (Head),Bpk. Ambara,0877-0165-7595,A (Assistant),,,gudang,Coverage area Tabanan,2018-11-20,active
+SGR,Saka Niaga Girimas,BALI,"Jl. By Pass Ir. Sukarno, Girimas, Singaraja",Bpk. Deddy,0811-3444-141,H (Head),Bpk. Angga,0878-5069-5943,A (Assistant),,,gudang,Coverage area Buleleng,2019-06-12,active
+DPS,Saka Niaga Denpasar,BALI,"Jl. Gatot Subroto Timur, Denpasar, Bali",Bpk. Budi Atmaja,0821-7995-9377,H (Head),Bpk. Wildan,,A (Assistant),,,gudang,Coverage area Denpasar city,2018-04-08,active
+KGW,Saka Niaga Singaraja,BALI,"Jl. Surapati, Singaraja, Buleleng, Bali",Bpk. Ketut,0853-1234-5678,H (Head),,,,,,gudang,Coverage area Buleleng Utara,2020-09-01,active
+SGR2,Saka Niaga Gilimanuk,BALI,"Jl. Raya Gilimanuk, Banyuwedang, Melaya, Jembrana",Bpk. Gede,0812-9876-5432,H (Head),,,,,,gudang,Coverage area Jembrana (gerbang Bali-Jatim),2021-02-14,active
+MTR,Saka Niaga Mataram,Nusa Tenggara Barat,"Jl. Lingkar Selatan, Mataram, NTB",Bpk. Haerul,0852-3833-5251,A (Assistant),Bpk. Yudi,0853-3305-3354,H (Head),,,gudang,Gudang utama NTB,2019-09-05,active
+LTM,Saka Niaga Lombok Timur,Nusa Tenggara Barat,"Jl. Raya Mataram - Lombok Timur, Selong",Bpk. Adhit,0812-3458-9619,H (Head),Bpk. Zibran,0817-200-503,A (Assistant),,,gudang,Coverage area Lombok Timur,2019-11-25,active
+SBW,Saka Niaga Sumbawa,Nusa Tenggara Barat,"Jl. Garuda, Sumbawa Besar, NTB",Bpk. Fakhri,0819-3592-5112,H (Head),Bpk. Wisnu,0878-5398-1945,A (Assistant),,,gudang,Coverage area Sumbawa,2020-04-17,active
+BMA,Saka Niaga Bima,Nusa Tenggara Barat,"Jl. Sultan Muhammad Salahuddin, Bima, NTB",Bpk. Gunawan,0822-6262-7996,H (Head),Bpk. Anjas,0823-5925-5778,A (Assistant),,,gudang,Coverage area Bima,2020-08-30,active
+CRK,Saka Niaga Carik,Nusa Tenggara Barat,"PENGIRIMAN SNA KE GUDANG MATARAM, KE GUDANG TUJUAN MENGGUNAKAN TRANSFER",,,,,,,,transfer,Transfer only - via Mataram (no PIC needed),2020-01-01,active
+KPG,Saka Niaga Kupang,Nusa Tenggara Timur,"Jl. Sudirman, Kupang, NTT",Bpk. Hiro,0812-3881-6479,H (Head),Bpk. Yared,,A (Assistant),,,gudang,Gudang utama NTT,2020-06-12,active
+WNI,Saka Niaga Wini,Nusa Tenggara Timur,"Jl. Timor Raya, Wini, Timor Tengah Utara, NTT",Bpk. Meki,0812-3970-0561,A (Assistant),Bpk. David,0823-5932-2905,K (Koordinator),,,gudang,Coverage area TTU & Belu,2021-01-10,active
+PLR,Saka Niaga Palaran,Kalimantan Timur,"Jl. Cipto Mangunkusumo, Palaran, Samarinda",Bpk. Yanto,081-3450-81509,H (Head),Pak Hendy,0852-5252-6678,A (Assistant),Ibu Ummy,0852-5006-2686,A (Assistant),gudang,Gudang utama Kaltim,2019-04-22,active
+SMR,Saka Niaga Samarinda,Kalimantan Timur,"Jl. Gatot Subroto, Samarinda",Bpk. Andi,0812-1111-2222,H (Head),,,,,,gudang,Coverage area Samarinda kota,2020-07-15,active
+BLK,Saka Niaga Balikpapan,Kalimantan Timur,"Jl. Jenderal Sudirman, Balikpapan",Bpk. Rudi,0812-3333-4444,H (Head),,,,,,gudang,Coverage area Balikpapan,2020-10-08,active
+TGR,Saka Niaga Tenggarong,Kalimantan Timur,"Jl. APT Pranoto, Tenggarong, Kutai Kartanegara",Bpk. Hasan,0812-5555-6666,H (Head),,,,,,gudang,Coverage area Kukar,2021-05-20,active

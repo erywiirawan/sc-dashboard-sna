@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Download Templates — SC Dashboard PT SNA</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg: #0f172a; --surface: #1e293b; --surface-2: #334155; --border: #475569; --text: #f1f5f9; --text-2: #cbd5e1; --text-3: #94a3b8; --primary: #3b82f6; --success: #10b981; --warning: #f59e0b; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; line-height: 1.5; }
+  .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .header h1 { font-size: 18px; font-weight: 700; }
+  .header h1 span { color: var(--primary); }
+  .back-link { color: var(--text-2); text-decoration: none; font-size: 13px; padding: 8px 16px; border: 1px solid var(--border); border-radius: 6px; }
+  .back-link:hover { background: var(--surface-2); }
+  .container { max-width: 900px; margin: 32px auto; padding: 0 24px; }
+  .lead { color: var(--text-2); margin-bottom: 24px; line-height: 1.6; }
+  .lead code { background: var(--surface-2); padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin-bottom: 12px; }
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: white; text-decoration: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 13px; border: none; cursor: pointer; transition: background 0.15s; }
+  .btn:hover { background: #2563eb; }
+  .btn.secondary { background: var(--surface-2); }
+  .btn.secondary:hover { background: #475569; }
+  .btn.success { background: var(--success); }
+  .btn.success:hover { background: #059669; }
+  .file-list { list-style: none; margin-top: 12px; }
+  .file-list li { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border-radius: 6px; background: var(--surface-2); margin-bottom: 6px; font-size: 13px; }
+  .file-list .name { font-family: 'JetBrains Mono', 'Courier New', monospace; color: var(--text-2); }
+  .file-list .meta { color: var(--text-3); font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; margin-left: 8px; }
+  .badge.master { background: rgba(59,130,246,0.15); color: #60a5fa; }
+  .badge.monthly { background: rgba(16,185,129,0.15); color: #34d399; }
+  .badge.docs { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .badge.important { background: rgba(239,68,68,0.15); color: #f87171; }
+  .steps { counter-reset: step; list-style: none; margin-top: 12px; }
+  .steps li { counter-increment: step; padding: 8px 0 8px 36px; position: relative; color: var(--text-2); }
+  .steps li::before { content: counter(step); position: absolute; left: 0; top: 8px; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: white; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📥 Download Center — <span>SC Dashboard PT SNA</span></h1>
+  <a href="/" class="back-link">← Back to Dashboard</a>
+</div>
+
+<div class="container">
+  <p class="lead">
+    Semua file template dalam format <strong>.xlsx (Excel)</strong>. Bisa langsung dibuka di Microsoft Excel, Google Sheets, atau LibreOffice Calc.
+  </p>
+
+  <!-- BUNDLE -->
+  <div class="card">
+    <h2>📦 <strong>Download Semua Sekaligus (ZIP Bundle)</strong></h2>
+    <p style="color: var(--text-2); font-size: 13px; margin-top: 8px;">Dapat 8 file Excel (.xlsx) + README.md dalam 1 file ZIP.</p>
+    <div class="btn-row">
+      <a class="btn success" href="/templates/raw-data-templates.xlsx.zip" download>⬇ Download ZIP Excel (58 KB)</a>
+      <a class="btn secondary" href="/templates/raw-data-templates.csv.zip" download>⬇ Download ZIP CSV (13 KB)</a>
+    </div>
+  </div>
+
+  <!-- INDIVIDUAL FILES -->
+  <div class="card">
+    <h2>📂 <strong>Download Per File (Excel .xlsx)</strong></h2>
+    <p style="color: var(--text-2); font-size: 13px; margin-top: 8px;">Prioritas update: <span class="badge important">⭐ Paling penting</span> = update duluan.</p>
+    <ul class="file-list">
+      <li>
+        <div>
+          <span class="name">01_branches.xlsx</span>
+          <span class="badge master">Master</span>
+        </div>
+        <div>
+          <span class="meta">8 KB</span>
+          <a class="btn" style="margin-left: 12px; padding: 4px 12px; font-size: 11px;" href="/templates/01_branches.xlsx" download>⬇</a>
+        </div>
+      </li>
+      <li>
+        <div>
+          <span class="name">02_suppliers.xlsx</span>
+          <span class="badge master">Master</span>
+        </div>
+        <div>
+          <span class="meta">8 KB</span>
+          <a class="btn" style="margin-left: 12px; padding: 4px 12px; font-size: 11px;" href="/templates/02_suppliers.xlsx" download>⬇</a>
+        </div>
+      </li>
+      <li>
+        <div>
+          <span class="name">03_products.xlsx</span>
+          <span class="badge master">Master</span>
+        </div>
+        <div>
+          <span class="meta">6 KB</span>
+          <a class="btn" style="margin-left: 12px; padding: 4px 12px; font-size: 11px;" href="/templates/03_products.xlsx" download>⬇</a>
+        </div>
+      </li>
+      <li>
+        <div>
+          <span class="name">04_stock_transactions.xlsx</span>
+          <span class="badge monthly">Bulanan</span>
+        </div>
+        <div>
+          <span class="meta">6 KB</span>
+          <a class="btn" style="margin-left: 12px; padding: 4px 12px; font-size: 11px;" href="/templates/04_stock_transactions.xlsx" download>⬇</a>
+        </div>
+      </li>
+      <li style="border: 1px solid var(--primary); background: rgba(59,130,246,0.08);">
+        <div>
+          <span class="name">05_sales_history.xlsx</span>
+          <span class="badge monthly">Bulanan</span>
+          <span class="badge important">⭐ Paling penting</span>
+        </div>
+        <div>
+          <span class="meta">7 KB</span>
+          <a class="btn" style="margin-left: 12px; padding: 4px 12px; font-size: 11px;" href="/templates/05_sales_history.xlsx" download>⬇</a>
+        </div>
+      </li>
+      <li style="border: 1px solid var(--primary); background: rgba(59,130,246,0.08);">
+        <div>
+          <span class="name">06_stock_snapshot.xlsx</span>
+          <span class="badge monthly">Bulanan</span>
+          <span class="badge important">⭐ Paling penting</span>
+        </div>
+        <div>
+          <span class="meta">7 KB</span>
+          <a class="btn" style="margin-left: 12px; padding: 4px 12px; font-size: 11px;" href="/templates/06_stock_snapshot.xlsx" download>⬇</a>
+        </div>
+      </li>
+      <li>
+        <div>
+          <span class="name">07_purchase_orders.xlsx</span>
+          <span class="badge monthly">Bulanan</span>
+        </div>
+        <div>
+          <span class="meta">7 KB</span>
+          <a class="btn" style="margin-left: 12px; padding: 4px 12px; font-size: 11px;" href="/templates/07_purchase_orders.xlsx" download>⬇</a>
+        </div>
+      </li>
+      <li>
+        <div>
+          <span class="name">08_customers.xlsx</span>
+          <span class="badge monthly">Bulanan</span>
+        </div>
+        <div>
+          <span class="meta">6 KB</span>
+          <a class="btn" style="margin-left: 12px; padding: 4px 12px; font-size: 11px;" href="/templates/08_customers.xlsx" download>⬇</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div class="card">
+    <h2>🛠️ <strong>Cara Pakai</strong></h2>
+    <ol class="steps">
+      <li><strong>Download</strong> file Excel (.xlsx) dari atas (atau ZIP bundle kalau mau semua sekaligus)</li>
+      <li><strong>Edit</strong> di Excel/Google Sheets/LibreOffice — ganti data sample dengan data real PT SNA</li>
+      <li><strong>Kirim balik</strong> file yang sudah di-edit ke saya (via Telegram ini)</li>
+      <li>Saya akan <strong>upload ke Vercel</strong> &amp; dashboard auto-refresh dengan data baru</li>
+    </ol>
+    <p style="color: var(--text-3); font-size: 12px; margin-top: 16px;">
+      💡 <strong>Tips:</strong> Cukup edit 2 file paling penting dulu: <code>05_sales_history.xlsx</code> &amp; <code>06_stock_snapshot.xlsx</code>. File lain bisa nanti.
+    </p>
+  </div>
+
+  <p style="text-align: center; color: var(--text-3); font-size: 12px; margin-top: 40px;">
+    📊 SC Dashboard v1.0 — PT Saka Niaga (SNA) | Manager-Level Supply Chain Analytics
+  </p>
+</div>
+
+</body>
+</html>

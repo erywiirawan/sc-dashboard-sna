@@ -1,0 +1,11 @@
+txn_id,date,branch_id,sku,txn_type,quantity,unit,unit_price_idr,total_value_idr,supplier_id,po_number,notes
+TXN001,2026-01-05,BWI,05SGMB914,in,50,lembar,47500,2375000,1,PO-2026-001,Pembelian awal bulan
+TXN002,2026-01-05,BWI,04PAKUB4,in,100,kg,18000,1800000,15,PO-2026-001,Pembelian awal bulan
+TXN003,2026-01-07,BWI,01BRTX,out,30,m3,650000,19500000,,,Penjualan ke Toko Bangunan Maju Jaya
+TXN004,2026-01-08,GYR,05SGMB914,out,15,lembar,52000,780000,,,Penjualan ke Proyek Villa Ubud
+TXN005,2026-01-10,NSD,12KCB,out,8,roll,420000,3360000,,,Penjualan ke Kontraktor Listrik
+TXN006,2026-01-12,BWI,15GRCB,out,20,lembar,125000,2500000,,,Penjualan ke Proyek Hotel
+TXN007,2026-01-15,BWI,05SGMB914,in,75,lembar,47500,3562500,1,PO-2026-005,Restock setelah penjualan
+TXN008,2026-01-18,GYR,01BRTX,out,45,m3,650000,29250000,,,Penjualan ke Proyek Vila Cluster
+TXN009,2026-01-20,BWI,07KWTBS,out,12,roll,275000,3300000,,,Penjualan ke Toko Bangunan
+TXN010,2026-01-22,NSD,02HOLLOW,out,80,batang,65000,5200000,,,Penjualan ke Proyek Ruko

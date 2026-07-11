@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SC KPI Dashboard — PT Saka Niaga (SNA)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f172a; --surface: #1e293b; --surface-2: #334155; --border: #475569;
+    --text: #f1f5f9; --text-2: #cbd5e1; --text-3: #94a3b8;
+    --primary: #3b82f6; --primary-hover: #2563eb;
+    --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --info: #06b6d4;
+    --purple: #a855f7;
+  }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; line-height: 1.5; }
+
+  /* Header */
+  .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .header h1 { font-size: 18px; font-weight: 700; }
+  .header h1 span { color: var(--primary); }
+  .header-meta { font-size: 12px; color: var(--text-3); }
+  .header-actions { display: flex; gap: 8px; }
+
+  /* Filter bar */
+  .filter-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 32px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .filter-group { display: flex; align-items: center; gap: 8px; }
+  .filter-group label { font-size: 12px; font-weight: 500; color: var(--text-3); }
+  select, input { background: var(--surface-2); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 6px; font-size: 13px; font-family: inherit; }
+  select:focus, input:focus { outline: none; border-color: var(--primary); }
+
+  /* KPI Grid */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; padding: 24px 32px; }
+  .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; position: relative; overflow: hidden; }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
+  .kpi-card.success::before { background: var(--success); }
+  .kpi-card.warning::before { background: var(--warning); }
+  .kpi-card.danger::before { background: var(--danger); }
+  .kpi-card.info::before { background: var(--info); }
+  .kpi-card.purple::before { background: var(--purple); }
+  .kpi-label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 8px; }
+  .kpi-value { font-size: 28px; font-weight: 700; line-height: 1.1; }
+  .kpi-sub { font-size: 12px; color: var(--text-3); margin-top: 4px; }
+  .kpi-trend { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; margin-top: 6px; padding: 2px 8px; border-radius: 12px; font-weight: 500; }
+  .kpi-trend.up { background: rgba(16,185,129,0.15); color: var(--success); }
+  .kpi-trend.down { background: rgba(239,68,68,0.15); color: var(--danger); }
+  .kpi-trend.flat { background: rgba(148,163,184,0.15); color: var(--text-3); }
+
+  /* Main grid */
+  .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; padding: 0 32px 24px; }
+  .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .chart-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .chart-card .chart-sub { font-size: 12px; color: var(--text-3); margin-bottom: 16px; }
+  .chart-container { position: relative; height: 280px; }
+
+  /* Alert feed */
+  .alert-feed { max-height: 320px; overflow-y: auto; }
+  .alert-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px; border-radius: 8px; margin-bottom: 8px; background: var(--surface-2); border-left: 3px solid var(--warning); }
+  .alert-item.critical { border-left-color: var(--danger); }
+  .alert-item.info { border-left-color: var(--info); }
+  .alert-item.success { border-left-color: var(--success); }
+  .alert-icon { font-size: 16px; flex-shrink: 0; }
+  .alert-content { flex: 1; }
+  .alert-title { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+  .alert-desc { font-size: 11px; color: var(--text-3); }
+
+  /* Table */
+  .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 0 32px 24px; }
+  .table-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 10px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); font-weight: 600; border-bottom: 1px solid var(--border); }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  tr:hover td { background: var(--surface-2); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge-success { background: rgba(16,185,129,0.15); color: var(--success); }
+  .badge-warning { background: rgba(245,158,11,0.15); color: var(--warning); }
+  .badge-danger { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+  /* Footer */
+  .footer { text-align: center; padding: 20px; color: var(--text-3); font-size: 12px; border-top: 1px solid var(--border); }
+
+  /* Loading */
+  .loading { display: flex; align-items: center; justify-content: center; min-height: 400px; flex-direction: column; gap: 12px; }
+  .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } .filter-bar { flex-direction: column; align-items: flex-start; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📊 SC KPI Dashboard — <span>PT Saka Niaga</span></h1>
+  <div class="header-meta" id="lastUpdate">Loading...</div>
+  <div class="header-actions">
+    <button onclick="refreshData()" style="background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 500; cursor: pointer;">🔄 Refresh</button>
+      <a href="/download" style="background: var(--success); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 500; text-decoration: none; font-size: 13px;">📥 Download Templates</a>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <div class="filter-group">
+    <label>Region:</label>
+    <select id="regionFilter" onchange="applyFilters()">
+      <option value="ALL">Semua Region</option>
+      <option value="BALI">Bali</option>
+      <option value="Nusa Tenggara Barat">NTB</option>
+      <option value="Kalimantan Timur">Kaltim</option>
+      <option value="Nusa Tenggara Timur">NTT</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <label>Kategori:</label>
+    <select id="categoryFilter" onchange="applyFilters()">
+      <option value="ALL">Semua Kategori</option>
+      <option value="infrastructure">🏗️ Infrastructure</option>
+      <option value="critical-sso">⚠️ Critical (Single-Source)</option>
+      <option value="structural">🏗️ Structural</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <label>Periode:</label>
+    <select id="periodFilter" onchange="applyFilters()">
+      <option value="current">Current Month</option>
+      <option value="qtd">Quarter to Date</option>
+      <option value="ytd">Year to Date</option>
+    </select>
+  </div>
+</div>
+
+<div id="dashboardContent" class="loading">
+  <div class="spinner"></div>
+  <div>Memuat data master...</div>
+</div>
+
+<div class="footer">
+  SC KPI Dashboard v1.0 — PT Saka Niaga (SNA) | Manager-Level Supply Chain Analytics
+  <br/>Data source: Master Cabang & Supplier (30 vendor, 21 cabang, 4 region) | Last refresh: <span id="footerUpdate">-</span>
+</div>
+
+<script>
+// ============================================================
+// DATA LOADER — Try fetch from CSV files first, fallback to inline
+// ============================================================
+async function fetchCSV(url) {
+  try {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    return await r.text();
+  } catch (e) {
+    console.warn(`Failed to load ${url}:`, e.message);
+    return null;
+  }
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/['"]/g, ''));
+  return lines.slice(1).map(line => {
+    // Simple CSV parse (assumes no quoted commas for now)
+    const values = line.split(',');
+    const row = {};
+    headers.forEach((h, i) => row[h] = (values[i] || '').trim().replace(/^"|"$/g, ''));
+    return row;
+  });
+}
+
+// ============================================================
+// MASTER DATA — Try load from CSV, fallback to inline
+// ============================================================
+let MASTER_DATA = {
+  branches: [
+    // BALI (10)
+    {id:'BWI', name:'Saka Niaga Banyuwangi', region:'BALI', pic_count:3, type:'gudang'},
+    {id:'GYR', name:'Saka Niaga Ketewel', region:'BALI', pic_count:1, type:'gudang'},
+    {id:'NSD', name:'Saka Niaga Nusa Dua', region:'BALI', pic_count:2, type:'gudang'},
+    {id:'KLK', name:'Saka Niaga Klungkung', region:'BALI', pic_count:0, type:'transfer', note:'Transfer only - via Ketewel'},
+    {id:'KRS', name:'Saka Niaga Karangasem', region:'BALI', pic_count:2, type:'gudang'},
+    {id:'TBN', name:'Saka Niaga Tabanan', region:'BALI', pic_count:2, type:'gudang'},
+    {id:'SGR', name:'Saka Niaga Girimas', region:'BALI', pic_count:2, type:'gudang'},
+    {id:'DPS', name:'Saka Niaga Denpasar', region:'BALI', pic_count:2, type:'gudang'},
+    {id:'KGW', name:'Saka Niaga Singaraja', region:'BALI', pic_count:1, type:'gudang'},
+    {id:'SGR2', name:'Saka Niaga Gilimanuk', region:'BALI', pic_count:1, type:'gudang'},
+    // NTB (5)
+    {id:'MTR', name:'Saka Niaga Mataram', region:'Nusa Tenggara Barat', pic_count:2, type:'gudang'},
+    {id:'LTM', name:'Saka Niaga Lombok Timur', region:'Nusa Tenggara Barat', pic_count:2, type:'gudang'},
+    {id:'SBW', name:'Saka Niaga Sumbawa', region:'Nusa Tenggara Barat', pic_count:2, type:'gudang'},
+    {id:'BMA', name:'Saka Niaga Bima', region:'Nusa Tenggara Barat', pic_count:2, type:'gudang'},
+    {id:'CRK', name:'Saka Niaga Carik', region:'Nusa Tenggara Barat', pic_count:0, type:'transfer', note:'Transfer only - via Mataram'},
+    // NTT (2)
+    {id:'KPG', name:'Saka Niaga Kupang', region:'Nusa Tenggara Timur', pic_count:2, type:'gudang'},
+    {id:'WNI', name:'Saka Niaga Wini', region:'Nusa Tenggara Timur', pic_count:2, type:'gudang'},
+    // KALTIM (4)
+    {id:'PLR', name:'Saka Niaga Palaran', region:'Kalimantan Timur', pic_count:3, type:'gudang'},
+    {id:'SMR', name:'Saka Niaga Samarinda', region:'Kalimantan Timur', pic_count:1, type:'gudang'},
+    {id:'BLK', name:'Saka Niaga Balikpapan', region:'Kalimantan Timur', pic_count:1, type:'gudang'},
+    {id:'TGR', name:'Saka Niaga Tenggarong', region:'Kalimantan Timur', pic_count:1, type:'gudang'},
+  ],
+  suppliers: [
+    {id:1, group:'Bata Ringan', count:5, type:'multi-source', top:'30 Hari', region:'Jatim'},
+    {id:2, group:'Kabel', count:5, type:'multi-source', top:'CBD', region:'Jatim'},
+    {id:3, group:'Lem Rajawali', count:3, type:'multi-source', top:'60 Hari', region:'Jatim'},
+    {id:4, group:'Besi', count:2, type:'multi-source', top:'14 hari', region:'Jatim'},
+    {id:5, group:'Paku, Kawat, Seng', count:2, type:'multi-source', top:'30 Hari', region:'Jatim'},
+    {id:6, group:'Triplek', count:2, type:'multi-source', top:'45 Hari', region:'Jatim'},
+    {id:7, group:'Pipa', count:2, type:'multi-source', top:'1 hari', region:'Jatim'},
+    {id:8, group:'GRC', count:1, type:'single-source', top:'15 Hari', region:'Jakarta'},
+    {id:9, group:'Paku', count:1, type:'single-source', top:'1 hari', region:'Jatim'},
+    {id:10, group:'Asbes', count:1, type:'single-source', top:'CBD', region:'Jatim'},
+    {id:11, group:'Hollow, Trimdek, Canal C, Reng, Wall Angle', count:1, type:'single-source', top:'45 Hari', region:'Jatim'},
+    {id:12, group:'Gypsum', count:1, type:'single-source', top:'60 Hari', region:'Jatim'},
+    {id:13, group:'Keran Ryuichi', count:1, type:'single-source', top:'30 Hari', region:'Jatim'},
+    {id:14, group:'Wiremesh', count:1, type:'single-source', top:'14 hari', region:'Jatim'},
+    {id:15, group:'Indostar Board', count:1, type:'single-source', top:'CBD', region:'Jatim'},
+    {id:16, group:'Aspal', count:1, type:'single-source', top:'30 Hari', region:'Jatim'},
+  ]
+};
+
+// Simulated operational metrics (placeholder, akan di-replace dengan data real dari ANALISA sheet)
+const SIMULATED_METRICS = {
+  otif: 87.3,  // On-Time In-Full %
+  fillRate: 94.2,  // Order fulfillment rate
+  inventoryTurnover: 6.8,  // Times per year
+  daysOnHand: 54,  // Average days of inventory
+  stockoutRate: 8.5,  // % SKUs out of stock
+  totalSKUs: 67,
+  singleSourceSKUs: 9,
+  totalPOValue: 485000000,  // Rp 485jt/bulan (working capital)
+  supplierCount: 30,
+  branchCount: 21,
+  leadTimeAvg: {bali: 17, ntb: 24, ntt: 25, kaltim: 24}  // days
+};
+
+// Top SKU by margin (placeholder, replace with real ANALISA)
+const TOP_SKU_MARGIN = [
+  {sku:'05SGMB914', name:'SENG GAJAMADA 0.20', margin:32.5, sales:349, status:'urgent'},
+  {sku:'04PAKUB4', name:'Paku 4 inch Biasa', margin:28.1, sales:1250, status:'normal'},
+  {sku:'07KWTBS', name:'Kawat Bendrat Size', margin:26.8, sales:890, status:'normal'},
+  {sku:'01BRTX', name:'Bata Ringan TX 10cm', margin:24.3, sales:2100, status:'normal'},
+  {sku:'08SRIM', name:'Seng Spandex Rim', margin:22.7, sales:456, status:'watch'},
+  {sku:'12KCB', name:'Kabel BC 2x2.5mm', margin:21.5, sales:780, status:'normal'},
+  {sku:'15GRCB', name:'GRC Board 4mm', margin:19.8, sales:320, status:'critical'},
+];
+
+// Sales trend 5 bulan (placeholder, replace with real)
+const SALES_TREND = {
+  labels: ['Feb 2026', 'Mar 2026', 'Apr 2026', 'Mei 2026', 'Jun 2026 (F)'],
+  values: [320, 345, 368, 392, 410],  // dalam juta
+  target: [350, 360, 370, 380, 400]
+};
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  const content = document.getElementById('dashboardContent');
+  content.classList.remove('loading');
+  content.innerHTML = `
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">OTIF (On-Time In-Full)</div>
+        <div class="kpi-value">${SIMULATED_METRICS.otif}%</div>
+        <div class="kpi-sub">Target: 95%</div>
+        <div class="kpi-trend down">↓ 2.1% dari bulan lalu</div>
+      </div>
+      <div class="kpi-card success">
+        <div class="kpi-label">Fill Rate</div>
+        <div class="kpi-value">${SIMULATED_METRICS.fillRate}%</div>
+        <div class="kpi-sub">Order fulfillment</div>
+        <div class="kpi-trend up">↑ 1.5% MoM</div>
+      </div>
+      <div class="kpi-card info">
+        <div class="kpi-label">Inventory Turnover</div>
+        <div class="kpi-value">${SIMULATED_METRICS.inventoryTurnover}x</div>
+        <div class="kpi-sub">Per tahun</div>
+        <div class="kpi-trend up">↑ 0.3x YoY</div>
+      </div>
+      <div class="kpi-card warning">
+        <div class="kpi-label">Days on Hand</div>
+        <div class="kpi-value">${SIMULATED_METRICS.daysOnHand} hari</div>
+        <div class="kpi-sub">Avg seluruh SKU</div>
+        <div class="kpi-trend flat">→ Stabil</div>
+      </div>
+      <div class="kpi-card danger">
+        <div class="kpi-label">Stockout Rate</div>
+        <div class="kpi-value">${SIMULATED_METRICS.stockoutRate}%</div>
+        <div class="kpi-sub">SKU kosong saat order</div>
+        <div class="kpi-trend down">↓ 0.8% (membaik)</div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="kpi-label">Working Capital</div>
+        <div class="kpi-value">Rp ${(SIMULATED_METRICS.totalPOValue/1000000).toFixed(0)}jt</div>
+        <div class="kpi-sub">Modal kerja tertahan</div>
+        <div class="kpi-trend up">↑ 5% dari Q1</div>
+      </div>
+    </div>
+
+    <!-- Main grid: charts + alerts -->
+    <div class="main-grid">
+      <div>
+        <div class="chart-card" style="margin-bottom: 16px;">
+          <h3>📈 Sales Trend & Forecast (5 Bulan)</h3>
+          <div class="chart-sub">Actual vs Target — dalam juta Rp</div>
+          <div class="chart-container">
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>🏭 Single-Source Risk Distribution</h3>
+          <div class="chart-sub">9 group produk dengan 1 supplier — risk stockout jika supplier mogok</div>
+          <div class="chart-container">
+            <canvas id="singleSourceChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="chart-card" style="margin-bottom: 16px;">
+          <h3>⚠️ Red Flag Alerts</h3>
+          <div class="chart-sub">Items butuh action segera</div>
+          <div class="alert-feed" id="alertFeed"></div>
+        </div>
+        <div class="chart-card">
+          <h3>📊 TOP Supplier Performance</h3>
+          <div class="chart-sub">Distribusi payment terms</div>
+          <div class="chart-container" style="height: 200px;">
+            <canvas id="topChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table: Top SKU by margin -->
+    <div class="table-card">
+      <h3>💰 Top SKU by Margin — Need Action</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>Nama Barang</th>
+            <th>Margin %</th>
+            <th>Sales (5 bln)</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${TOP_SKU_MARGIN.map(s => `
+            <tr>
+              <td><code>${s.sku}</code></td>
+              <td>${s.name}</td>
+              <td><strong>${s.margin}%</strong></td>
+              <td>${s.sales.toLocaleString('id-ID')}</td>
+              <td><span class="badge ${s.status==='urgent'?'badge-danger':s.status==='critical'?'badge-danger':s.status==='watch'?'badge-warning':'badge-success'}">${s.status.toUpperCase()}</span></td>
+              <td>${s.status==='urgent'?'Order ASAP':s.status==='critical'?'Cari backup supplier':s.status==='watch'?'Monitor':'Maintain stock'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  // Render charts
+  renderSalesChart();
+  renderSingleSourceChart();
+  renderTOPChart();
+  renderAlerts();
+}
+
+function renderSalesChart() {
+  const ctx = document.getElementById('salesChart');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: SALES_TREND.labels,
+      datasets: [
+        {
+          label: 'Actual Sales',
+          data: SALES_TREND.values,
+          borderColor: '#3b82f6',
+          backgroundColor: 'rgba(59,130,246,0.1)',
+          fill: true,
+          tension: 0.3,
+          borderWidth: 2,
+          pointRadius: 4
+        },
+        {
+          label: 'Target',
+          data: SALES_TREND.target,
+          borderColor: '#10b981',
+          borderDash: [5,5],
+          borderWidth: 2,
+          pointRadius: 3,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#cbd5e1' } } },
+      scales: {
+        y: { ticks: { color: '#94a3b8', callback: v => 'Rp ' + v + 'jt' }, grid: { color: '#334155' } },
+        x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
+      }
+    }
+  });
+}
+
+function renderSingleSourceChart() {
+  const ctx = document.getElementById('singleSourceChart');
+  const singleSource = MASTER_DATA.suppliers.filter(s => s.type === 'single-source');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: singleSource.map(s => s.group.length > 15 ? s.group.slice(0,15) + '…' : s.group),
+      datasets: [{
+        label: 'Jumlah Supplier',
+        data: singleSource.map(() => 1),
+        backgroundColor: '#ef4444',
+        borderColor: '#dc2626',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { afterLabel: (ctx) => {
+          const s = singleSource[ctx.dataIndex];
+          return [`TOP: ${s.top}`, `Lokasi: ${s.region}`];
+        }}}
+      },
+      scales: {
+        x: { ticks: { color: '#94a3b8', stepSize: 1 }, grid: { color: '#334155' } },
+        y: { ticks: { color: '#cbd5e1', font: { size: 11 } }, grid: { display: false } }
+      }
+    }
+  });
+}
+
+function renderTOPChart() {
+  const ctx = document.getElementById('topChart');
+  const topDist = {
+    'CBD': 8, '30 Hari': 5, '45 Hari': 4, '60 Hari': 4, '1 hari': 4, '14 hari': 3, '15 Hari': 2
+  };
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(topDist),
+      datasets: [{
+        data: Object.values(topDist),
+        backgroundColor: ['#ef4444', '#3b82f6', '#10b981', '#10b981', '#06b6d4', '#f59e0b', '#a855f7'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'right', labels: { color: '#cbd5e1', font: { size: 10 }, boxWidth: 12 } }
+      }
+    }
+  });
+}
+
+function renderAlerts() {
+  const alerts = [
+    { type: 'critical', icon: '🚨', title: '9 Group Single-Source', desc: 'GRC, Gypsum, Wiremesh, Hollow, Asbes, Aspal, Keran, Indostar, Paku. Risk: stockout jika supplier mogok.' },
+    { type: 'critical', icon: '📦', title: 'SENG GAJAMADA Stock = 0', desc: 'SKU 05SGMB914 urgent — perlu order 100 unit (Rp 4.7jt).' },
+    { type: 'warning', icon: '⏱️', title: 'OTIF masih 87.3%', desc: 'Target 95%. Gap 7.7pp = ~15 orders telat per 200 order.' },
+    { type: 'warning', icon: '💰', title: '27% supplier CBD (8 vendor)', desc: 'Cash flow tekanan tinggi. Negosiasi → 14-30 hari untuk hemat ~Rp 8-15jt/bulan.' },
+    { type: 'info', icon: '🏝️', title: '2 cabang tanpa PIC (KLK, CRK)', desc: 'Keduanya transfer-only, model bisnis harus di-eksplisitkan di sistem.' },
+    { type: 'info', icon: '📊', title: 'Working capital Rp 485jt', desc: 'Modal tertahan di inventory. Turnover bisa dioptimasi 1-2x dengan SKU pruning.' },
+  ];
+  document.getElementById('alertFeed').innerHTML = alerts.map(a => `
+    <div class="alert-item ${a.type}">
+      <div class="alert-icon">${a.icon}</div>
+      <div class="alert-content">
+        <div class="alert-title">${a.title}</div>
+        <div class="alert-desc">${a.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function applyFilters() {
+  // Filter logic here (placeholder)
+  console.log('Filters applied:', {
+    region: document.getElementById('regionFilter').value,
+    category: document.getElementById('categoryFilter').value,
+    period: document.getElementById('periodFilter').value
+  });
+}
+
+function refreshData() {
+  document.getElementById('lastUpdate').textContent = 'Refreshing...';
+  setTimeout(() => {
+    const now = new Date();
+    document.getElementById('lastUpdate').textContent = 'Last update: ' + now.toLocaleString('id-ID');
+    document.getElementById('footerUpdate').textContent = now.toLocaleString('id-ID');
+  }, 800);
+}
+
+// Init
+async function init() {
+  // Try load data from CSV first
+  const csvSources = {
+    branches: 'templates/01_branches.csv',
+    suppliers: 'templates/02_suppliers.csv',
+    products: 'templates/03_products.csv',
+    sales: 'templates/05_sales_history.csv',
+    stock: 'templates/06_stock_snapshot.csv',
+    po: 'templates/07_purchase_orders.csv',
+    customers: 'templates/08_customers.csv'
+  };
+  const loaded = {};
+  for (const [key, url] of Object.entries(csvSources)) {
+    const text = await fetchCSV(url);
+    if (text) loaded[key] = parseCSV(text);
+  }
+  // Update SIMULATED_METRICS from CSV if available
+  if (loaded.sales && loaded.sales.length > 0) {
+    const otifs = loaded.sales.map(r => parseFloat(r.otif_pct) || 0).filter(v => v > 0);
+    const fills = loaded.sales.map(r => parseFloat(r.fill_rate_pct) || 0).filter(v => v > 0);
+    if (otifs.length) SIMULATED_METRICS.otif = +(otifs.reduce((a,b)=>a+b,0) / otifs.length).toFixed(1);
+    if (fills.length) SIMULATED_METRICS.fillRate = +(fills.reduce((a,b)=>a+b,0) / fills.length).toFixed(1);
+  }
+  if (loaded.stock && loaded.stock.length > 0) {
+    const stockouts = loaded.stock.filter(r => r.status === 'urgent_stockout').length;
+    SIMULATED_METRICS.stockoutRate = +(stockouts / loaded.stock.length * 100).toFixed(1);
+    const dohs = loaded.stock.map(r => parseInt(r.days_of_cover) || 0).filter(v => v > 0);
+    if (dohs.length) SIMULATED_METRICS.daysOnHand = Math.round(dohs.reduce((a,b)=>a+b,0) / dohs.length);
+  }
+  if (loaded.branches) SIMULATED_METRICS.branchCount = loaded.branches.length;
+  if (loaded.suppliers) SIMULATED_METRICS.supplierCount = loaded.suppliers.length;
+
+  // Mark data source
+  if (Object.keys(loaded).length > 0) {
+    document.getElementById('lastUpdate').textContent = `Loaded ${Object.keys(loaded).length} CSV • ${new Date().toLocaleString('id-ID')}`;
+  }
+  render();
+  refreshData();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
